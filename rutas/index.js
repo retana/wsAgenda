@@ -1,4 +1,5 @@
 var ruta=require('express').Router();
+
 module.exports=(function(modelo){
 	var usuario=require('../controller/ControladorUsuario.js')(modelo);
 	var contacto=require('../controller/ControladorContacto.js')(modelo);
@@ -12,6 +13,9 @@ module.exports=(function(modelo){
 	ruta.post('/usuario/registro',usuario.registro);
 	ruta.post('/usuario/login',usuario.login);
 	ruta.get('/prueba',usuario.prueba)
+	
+	ruta.use(usuario.tokenMiddleware);
+	
 	/*
 		Rutas para Contacto
 	*/
@@ -19,6 +23,8 @@ module.exports=(function(modelo){
 	ruta.post('/contacto',contacto.add);
 	ruta.put('/contacto/:id',contacto.edit);
 	ruta.delete('/contacto/:id',contacto.delete);
+	
+	ruta.get('/token',usuario.tokenGenerator);
 	
 	return ruta;
 });

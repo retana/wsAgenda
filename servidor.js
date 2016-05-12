@@ -3,12 +3,12 @@
 	var bodyParser=require('body-parser');
 	var morgan=require('morgan');
 	var mysql=require('mysql');
+	var cors=require('cors');
 	var puerto=3000;
 	var conf=require('./config');
 	var modelo=require('./models');
-		
 	var app=express();
-	
+	app.use(cors());
 	app.use(bodyParser.urlencoded({
 		extended:false
 	}));
