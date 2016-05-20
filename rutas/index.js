@@ -12,10 +12,13 @@ module.exports=(function(modelo){
 	*/
 	ruta.post('/usuario/registro',usuario.registro);
 	ruta.post('/usuario/login',usuario.login);
-	ruta.get('/prueba',usuario.prueba)
+	
+	
+	ruta.get('/token',usuario.tokenGenerator);
 	
 	ruta.use(usuario.tokenMiddleware);
 	
+	ruta.get('/prueba',usuario.prueba)
 	/*
 		Rutas para Contacto
 	*/
@@ -24,7 +27,7 @@ module.exports=(function(modelo){
 	ruta.put('/contacto/:id',contacto.edit);
 	ruta.delete('/contacto/:id',contacto.delete);
 	
-	ruta.get('/token',usuario.tokenGenerator);
+	
 	
 	return ruta;
 });

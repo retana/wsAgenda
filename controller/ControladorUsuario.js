@@ -15,8 +15,11 @@ module.exports=function(modelo){
 				});
 		},
 		login:function(peticion,respuesta){			
-			modelo.sequelize.query("CALL sp_autenticarUsuario('"+peticion.body.nombre+"', '"+peticion.body.contrasena+"');").then(function(data){
-					respuesta.json(data);
+			modelo.sequelize.query("CALL sp_autenticarUsuario('"+peticion.body.correo+"', '"+peticion.body.contrasena+"');").then(function(user){
+					if(user.length>0)
+						respuesta.json(genToken(user));
+					else
+						respuesta.json({"user":[]});
 			}).error(function(err){
 				respuesta.send({"mensaje":"Error "+err,"status":"500"});
 			});
